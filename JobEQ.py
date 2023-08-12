@@ -40,22 +40,27 @@ if st.button('Equalize'):
         }
 
         response = requests.post(url, data=data)
-        response_text = response.text  # Access the content of the response
+        original_description = response.text  # Access the content of the response
+        col1, col2 = st.columns(2)
+        col1.header("Job Description")
+        col1.markdown(original_description, unsafe_allow_html=True)  # Display the original content in Streamlit
+
     with st.spinner('Equalizing Job Description...'):
         url = 'https://bepc.backnetwork.net/JobSiftBeta/assets/php/equalizer.php'
         data = {
-            "description": response_text,
+            "description": original_description,
             "equalize": "1",
         }
 
-        response = requests.post(url, data=data)
-        if response.status_code == 200:
-            response_text = response.text  # Access the content of the response
+        response2 = requests.post(url, data=data)
+        if response2.status_code == 200:
+            equalized_description = response2.text  # Access the content of the response
+            col2.header("Equalized Job Description")
+            col2.markdown(equalized_description, unsafe_allow_html=True)  # Display the equalized content in Streamlit
         else:
-            print("Error calling PHP script:", response.status_code)                # Transform the Resume file
- 
-        st.markdown(response_text, unsafe_allow_html=True)  # Display the content in Streamlit
-        st.success("Resume processing completed! To transform another file, please refresh the page (press F5).")
+            print("Error calling PHP script:", response2.status_code)                # Transform the Resume file
+
+        st.success("Job Equalization completed! To equalize another Job, please refresh the page (press F5).")
     
 
 st.markdown("""
