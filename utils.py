@@ -49,7 +49,8 @@ def equalize(job_description):
 
         {"role":"user", "content":f"Job Description: {job_description}"},
         {"role":"user", "content":f"By adhering to these guidelines, create a job description that is welcoming to a diverse\
-        range of candidates without making assumptions about their gender, age, ethnicity, or abilities."},
+        range of candidates without making assumptions about their gender, age, ethnicity, or abilities. The output should only be\
+         The new Job description, do not add 'Job Description is:' or anything like that."},
         ],
         temperature=0.3,
         )
