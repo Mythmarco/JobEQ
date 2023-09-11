@@ -3,6 +3,7 @@ import os
 from werkzeug.utils import secure_filename
 import requests
 import json
+import utils
 
 st.set_page_config(page_title="BEPC-JobEQ", page_icon="static/logo.png", layout='wide')
 import base64
@@ -27,40 +28,23 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-resumes = os.path.join(os.getcwd(), 'resumes')
-
 job_id = st.text_input('1.- Enter the Job ID')
 
 if st.button('Equalize'):
     with st.spinner('Obtaining Job Description...'):
-        url = 'https://bepc.backnetwork.net/JobSiftBeta/assets/php/equalizer.php'
-        data = {
-            "job": job_id,
-            "get_description": "1",
-        }
-
-        response = requests.post(url, data=data)
-        original_description = response.text  # Access the content of the response
+        # Fetch the original job description
+        original_description = utils.fetchjob(job_id)  # Using the equalize function from utils.py
         col1, col2 = st.columns(2)
         col1.header("Job Description")
         col1.markdown(original_description, unsafe_allow_html=True)  # Display the original content in Streamlit
 
     with st.spinner('Equalizing Job Description...'):
-        url = 'https://bepc.backnetwork.net/JobSiftBeta/assets/php/equalizer.php'
-        data = {
-            "description": original_description,
-            "equalize": "1",
-        }
+        # Equalize the job description
+        equalized_description = utils.equalize(original_description)  # Using the equalize function from utils.py
+        col2.header("Equalized Job Description")
+        col2.markdown(equalized_description, unsafe_allow_html=True)  # Display the equalized content in Streamlit
 
-        response2 = requests.post(url, data=data)
-        if response2.status_code == 200:
-            equalized_description = response2.text  # Access the content of the response
-            col2.header("Equalized Job Description")
-            col2.markdown(equalized_description, unsafe_allow_html=True)  # Display the equalized content in Streamlit
-        else:
-            print("Error calling PHP script:", response2.status_code)                # Transform the Resume file
-
-        st.success("Job Equalization completed! To equalize another Job, please refresh the page (press F5).")
+    st.success("Job Equalization completed! To equalize another Job, please refresh the page (press F5).")
     
 
 st.markdown("""
