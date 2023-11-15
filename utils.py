@@ -1,5 +1,13 @@
+import os
 import openai
 import requests
+from dotenv import load_dotenv
+
+
+load_dotenv()
+client = openai
+
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def fetchjob(job_id):
     url_job = 'https://bepc.backnetwork.net/JobSiftBeta/assets/php/equalizer.php'
@@ -10,9 +18,11 @@ def fetchjob(job_id):
 
 
 def equalize(job_description):
+    seed = 123455555
     #Equalize Job Description
-    score_summary = openai.ChatCompletion.create(
-    model= "gpt-4",
+    job_desc = client.chat.completions.create(
+    model= "gpt-4-1106-preview",
+    seed = seed,
     messages=[
         {"role":"user", "content":"You are an expert recruiting AI, specialized in Diversity, Equity, and Inclusion, \
          and guided by scientific studies such as 'Evidence That Gendered Wording in Job Advertisements Exists and\
@@ -48,11 +58,11 @@ def equalize(job_description):
          By following these tips, you can write a job description that is not gender biased and that will appeal to a wider range of candidates."},
 
         {"role":"user", "content":f"Job Description: {job_description}"},
-        {"role":"user", "content":f"By adhering to these guidelines, create a job description that is welcoming to a diverse\
+        {"role":"user", "content":"By adhering to these guidelines, create a job description that is welcoming to a diverse\
         range of candidates without making assumptions about their gender, age, ethnicity, or abilities. The output should only be\
          The new Job description, do not add 'Job Description is:' or anything like that."},
         ],
-        temperature=0.3,
+        temperature=0,
         )
-    new_job_description = score_summary['choices'][0]['message']['content']
+    new_job_description = job_desc.choices[0].message.content
     return new_job_description

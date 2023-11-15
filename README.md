@@ -1,4 +1,4 @@
-# <img src="static/rs2.png" width="100" height="100" style="vertical-align: middle;"> Job Equalizer <i><span style="font-size: 0.8em;">for Recruiters</span></i>
+# <img src="static/rs2.png" width="100" height="100" style="vertical-align: middle;"> Job Equalizer <i><span style="font-size: 0.8em;">for Recruiters V1.1</span></i>
 
 ## Overview
 Job Equalizer is designed to de-bias Job Descriptions. It is a tool that can be used by recruiters to ensure that their job descriptions are not biased against any group of people. 
@@ -21,7 +21,8 @@ The application will then be accessible in your web browser at http://localhost:
 Enter Job ID from Bullhorn
 Click on Equalize
 ## Features
-Uses GPT-4 to provide a summary of viability and a score of the candidate.
+Uses GPT-4 turbo to provide a summary of viability and a score of the candidate.
+Using Seed to maintain reproducibility. 
 
 ## Note
 This application is not intended to be used for any other purpose than to enhance the recruiter's process. It is not intended to be used for any other purpose.

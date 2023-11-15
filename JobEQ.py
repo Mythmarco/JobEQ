@@ -21,7 +21,7 @@ st.markdown(
     <div class="container">
         <h2 class="text-center mt-4">
             <img src="data:image/png;base64,{sr2new}" width="50" height="50" class="d-inline-block align-top" alt="">
-            JobEqualizer <span style="font-style: italic; font-size: 17px;">for recruiting</span>
+            JobEqualizer <span style="font-style: italic; font-size: 17px;">for recruiting V1.1</span>
         </h2>
     </div>
     """,
